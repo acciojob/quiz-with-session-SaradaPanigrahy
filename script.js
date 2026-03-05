@@ -54,3 +54,38 @@ function renderQuestions() {
   }
 }
 renderQuestions();
+
+const questionsElement = document.getElementById("questions");
+
+// load saved progress
+let userAnswers = JSON.parse(sessionStorage.getItem("progress")) || [];
+function submitQuiz() {
+
+  let score = 0;
+
+  for (let i = 0; i < questions.length; i++) {
+
+    if (userAnswers[i] === questions[i].answer) {
+      score++;
+    }
+
+  }
+
+  document.getElementById("result").innerText =
+    "Your score is " + score + " out of 5.";
+
+  // store score in localStorage
+  localStorage.setItem("score", score);
+
+}
+
+
+// show saved score after refresh
+const savedScore = localStorage.getItem("score");
+
+if (savedScore) {
+
+  document.getElementById("result").innerText =
+    "Your score is " + savedScore + " out of 5.";
+
+}
